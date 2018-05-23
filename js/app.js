@@ -1,5 +1,7 @@
 //Select the .deck ul element
 const deck = document.querySelector(".deck");
+const moves = document.querySelector(".moves");
+let counter = 0;
 /*
  * Create a list that holds all of your cards
  */
@@ -126,6 +128,13 @@ let addMatch = (c) => {
     });
 }
 
+//Increment counter when a move is made and display new value on page
+//const moves = document.querySelector(".moves");
+//let counter = 0;
+let addCounter = () => {
+    counter++;
+};
+
 //Click event listener for ul
 deck.addEventListener("click", function(event){
     const previousIcons = openCards.map(function(val){
@@ -136,6 +145,10 @@ deck.addEventListener("click", function(event){
     // showOrHide(ev sent);
     //Check to see if two open cards match
     if(openCards[1] && openCards.length%2 === 0){
+        //Increment counter to show completed "move"
+        addCounter();
+        console.log("Counter value: " + counter);
+        //Select current card and its icon
         const currentCard = openCards[openCards.length - 1];
         const currentIcon = currentCard.firstChild.classList[1];
         //If it is a match, add .match class to cards
