@@ -84,7 +84,8 @@ let showCard = (e) => {
         card = event.target.parentElement;
     }
     if(!card.classList.contains("show")){
-        target.classList.add("show");
+        card.classList.add("show");
+        card.classList.add("open");
     }
 }
 
@@ -109,9 +110,10 @@ let hideAndRemove = (e) => {
     const prevOpen = openCards[openCards.length - 2];
     const currentOpen = openCards[openCards.length - 1];
     prevOpen.classList.remove("show");
+    prevOpen.classList.remove("open");
     currentOpen.classList.remove("show");
+    currentOpen.classList.remove("open");
     openCards.splice(openCards.length -2, 2);
-
 }
 
 //Click event listener for ul
@@ -126,12 +128,8 @@ deck.addEventListener("click", function(event){
     if(openCards[1] && openCards.length%2 === 0){
         const currentCard = openCards[openCards.length - 1];
         const currentIcon = currentCard.firstChild.classList[1];
-        //If it's a match, lock in the cards so they can't flip
-        if(previousIcons.indexOf(currentIcon) !== -1){
-            console.log("It's a match!");
-        
-        //If the cards don't match, hide the icon and remove card from openCards array
-        } else if(previousIcons.indexOf(currentIcon) === -1){
+        //If it's not a match, remove the cards
+        if(previousIcons.indexOf(currentIcon) === -1){
             console.log("It's not a match");
             hideAndRemove(event);
         }
