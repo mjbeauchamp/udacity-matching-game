@@ -1,7 +1,14 @@
 //Select the .deck ul element
 const deck = document.querySelector(".deck");
+//Select the moves counter
 const moves = document.querySelector(".moves");
+//Moves counter value
 let counter = 0;
+//Timer element
+let timer = document.createElement("span");
+//Time value in seconds
+let time = 0;
+
 /*
  * Create a list that holds all of your cards
  */
@@ -189,3 +196,21 @@ resetBtn.addEventListener("click", function(event){
     moveSpan.textContent = counter;
 });
 
+//Create and manage timer -- will happen only on first card click after page load or restarting
+deck.addEventListener("click", startTimer);
+function startTimer(){
+    //Select div to add timer to
+    const scorePanel = document.querySelector(".score-panel");
+    timer.textContent = time;
+    //Add timer to scorePanel
+    scorePanel.appendChild(timer);
+    setInterval(addSecond, 1000);
+    // removeEventListener("click", startTimer);
+}
+
+//Increments timer by 1 second
+function addSecond(){
+    time++;
+    timer.textContent = time;
+
+}
