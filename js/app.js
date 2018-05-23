@@ -132,7 +132,12 @@ let addMatch = (c) => {
 //const moves = document.querySelector(".moves");
 //let counter = 0;
 let addCounter = () => {
+    //Select DOM .moves, which displays number of moves
+    let moveSpan = document.querySelector(".moves");
+    //Increment counter to indicate current number of completed moves
     counter++;
+    //Update DOM display of moves
+    moveSpan.textContent = counter;
 };
 
 //Click event listener for ul
