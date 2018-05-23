@@ -73,9 +73,29 @@ function shuffle(array) {
 let showOrHide = (e) => {
     const target = e.target;
     if(target.nodeName === "LI"){
-        e.target.classList.toggle("show");
+        if(!target.classList.contains("show")){
+            addToOpen(e);
+            target.classList.add("show");
+        } else if(target.classList.contains("show")){
+            //Search array to see if it currently contains this card
+            var arrIndex = openCards.indexOf(target);
+            //Remove card from array
+            openCards.splice(arrIndex, 1);
+            //Remove show class to hide card
+            target.classList.remove("show");
+        }
     } else if(target.nodeName === "I"){
-        e.target.parentElement.classList.toggle("show");
+        if(!target.parentElement.classList.contains("show")){
+            addToOpen(e);
+            target.parentElement.classList.add("show");
+        } else if(target.parentElement.classList.contains("show")){
+            //Search array to see if it currently contains this card
+            var arrIndex = openCards.indexOf(target.parentElement);
+            //Remove card from array
+            openCards.splice(arrIndex, 1);
+            //Remove show class to hide card
+            target.parentElement.classList.remove("show");
+        }
     }
 };
 
@@ -83,13 +103,13 @@ let showOrHide = (e) => {
 let openCards = [];
 
 //Adds cards to openCards array IF they aren't already in it
-let addToOpen = (e) => {
-    const target = e.target;
+let addToOpen = (event) => {
+    const target = event.target;
     let card;
     if(target.nodeName === "LI"){
-        card = e.target;
+        card = event.target;
     } else if(target.nodeName === "I"){
-        card = e.target.parentElement;
+        card = event.target.parentElement;
     }
     //Check to see if the second click is on the same card. If not, add it to the array.
     if(openCards[0] !== card){
@@ -99,7 +119,7 @@ let addToOpen = (e) => {
 
 deck.addEventListener("click", function(event){
     showOrHide(event);
-    addToOpen(event);
+    // addToOpen(event);
     if(openCards[1]){
         const firstCard = openCards[0];
         const secondCard = openCards[1];
