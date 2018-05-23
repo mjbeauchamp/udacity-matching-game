@@ -1,7 +1,34 @@
 /*
  * Create a list that holds all of your cards
  */
-
+let cards = [];
+let icons = [
+    "fa-diamond",
+    "fa-paper-plane-o",
+    "fa-anchor",
+    "fa-bolt",
+    "fa-cube",
+    "fa-anchor",
+    "fa-leaf",
+    "fa-bicycle",
+    "fa-diamond",
+    "fa-bomb",
+    "fa-leaf",
+    "fa-bomb",
+    "fa-bolt",
+    "fa-bicycle",
+    "fa-paper-plane-o",
+    "fa-cube"
+];
+for(let i = 0; i <16; i++){
+    let card = document.createElement("li");
+    let icon = document.createElement("i");
+    card.classList.add("card");
+    icon.classList.add("fa");
+    icon.classList.add(icons[i]);
+    card.appendChild(icon);
+    cards.push(card);
+}
 
 /*
  * Display the cards on the page
