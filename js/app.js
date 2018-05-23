@@ -69,5 +69,17 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+let showCard = (e) => {
+    const target = e.target;
+    if(target.nodeName === "LI"){
+        e.target.classList.toggle("show");
+    } else if(target.nodeName === "I"){
+        e.target.parentElement.classList.toggle("show");
+    }
+};
+
+deck.addEventListener("click", function(event){
+    showCard(event);
+});
 
 
