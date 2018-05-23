@@ -78,8 +78,23 @@ let showCard = (e) => {
     }
 };
 
+let openCards = [];
+
+let addToOpen = (e) => {
+    const target = e.target;
+    let card;
+    if(target.nodeName === "LI"){
+        card = e.target;
+    } else if(target.nodeName === "I"){
+        card = e.target.parentElement;
+    }
+    openCards.push(card);
+}
+
 deck.addEventListener("click", function(event){
     showCard(event);
+    addToOpen(event);
+    
 });
 
 
