@@ -152,13 +152,16 @@ deck.addEventListener("click", function(event){
     if(openCards[1] && openCards.length%2 === 0){
         //Increment counter to show completed "move"
         addCounter();
-        console.log("Counter value: " + counter);
         //Select current card and its icon
         const currentCard = openCards[openCards.length - 1];
         const currentIcon = currentCard.firstChild.classList[1];
         //If it is a match, add .match class to cards
+        //If it's the last match, game is won
         if(previousIcons.indexOf(currentIcon) !== -1){
             addMatch(currentIcon);
+            if(openCards.length===16){
+                console.log("Congrats! You won!!");
+            }
         //If it's not a match, remove the cards
         } else if(previousIcons.indexOf(currentIcon) === -1){
             console.log("It's not a match");
@@ -167,4 +170,5 @@ deck.addEventListener("click", function(event){
     }
 });
 
+//Restart button functionality
 
