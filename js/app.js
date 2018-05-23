@@ -116,18 +116,19 @@ let addToOpen = (event) => {
 
 //Click event listener for ul
 deck.addEventListener("click", function(event){
+    const previousIcons = openCards.map(function(val){
+        return val.firstChild.classList[1];
+    });
     showCard(event);
     addToOpen(event);
     // showOrHide(ev sent);
     //Check to see if two open cards match
     if(openCards[1]){
-        const firstCard = openCards[0];
-        const secondCard = openCards[1];
-        const firstIcon = firstCard.firstChild.classList[1];
-        if(!secondCard.firstChild.classList.contains(firstIcon)){
+        const currentCard = openCards[openCards.length - 1];
+        const currentIcon = currentCard.firstChild.classList[1];
+        if(previousIcons.indexOf(currentIcon) === -1){
             console.log("It's not a match");
             hideAndRemove(event);
-
         }
     }
 });
