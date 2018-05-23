@@ -1,7 +1,8 @@
 /*
  * Create a list that holds all of your cards
  */
-
+var deck = document.createElement("ul");
+deck.classList.add("deck");
 
 /*
  * Display the cards on the page
