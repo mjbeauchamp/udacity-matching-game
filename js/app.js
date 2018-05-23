@@ -116,6 +116,16 @@ let hideAndRemove = (e) => {
     openCards.splice(openCards.length -2, 2);
 }
 
+//Adds match class to matched cards
+let addMatch = (c) => {
+    let matched = openCards.filter(function(val){
+        return val.firstChild.classList[1] === c;
+    });
+    matched.forEach(function(val){
+        val.classList.add("match");
+    });
+}
+
 //Click event listener for ul
 deck.addEventListener("click", function(event){
     const previousIcons = openCards.map(function(val){
@@ -128,8 +138,11 @@ deck.addEventListener("click", function(event){
     if(openCards[1] && openCards.length%2 === 0){
         const currentCard = openCards[openCards.length - 1];
         const currentIcon = currentCard.firstChild.classList[1];
+        //If it is a match, add .match class to cards
+        if(previousIcons.indexOf(currentIcon) !== -1){
+            addMatch(currentIcon);
         //If it's not a match, remove the cards
-        if(previousIcons.indexOf(currentIcon) === -1){
+        } else if(previousIcons.indexOf(currentIcon) === -1){
             console.log("It's not a match");
             hideAndRemove(event);
         }
