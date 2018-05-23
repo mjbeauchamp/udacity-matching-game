@@ -4,8 +4,6 @@ const deck = document.querySelector(".deck");
 const moves = document.querySelector(".moves");
 //Moves counter value
 let counter = 0;
-//Time value in seconds
-let time = 0;
 
 /*
  * Create a list that holds all of your cards
@@ -194,15 +192,48 @@ resetBtn.addEventListener("click", function(event){
     moveSpan.textContent = counter;
 });
 
+//Timer functionality
+//Time value in seconds
+let seconds = 0;
+let minutes = 0;
+let hours = 0;
+
+let makeTime = () => {
+    if(seconds>59){
+        seconds = 0;
+        minutes++;
+    }
+    if(minutes>59){
+        minutes = 0;
+        hours++;
+    }
+    let showSeconds = seconds;
+    let showMinutes = minutes;
+    let showHours = hours;
+    if(seconds<10){
+        showSeconds = "0" + seconds;
+    }
+    if(minutes<10){
+        showMinutes = "0" + minutes;
+    }
+    if(hours<10){
+        showHours = "0" + hours;
+    }
+    let time = showHours + ":" + showMinutes + ":" + showSeconds;
+    return time;
+}
+
 //Create and manage timer -- will happen only on first card click after page load or restarting
 deck.addEventListener("click", startTimer);
 function startTimer(){
+    //Create initial time value
+    let currentTime = makeTime();
     //Select div to add timer to
     const scorePanel = document.querySelector(".score-panel");
     //Create timer label
     let timeAndLabel = document.createElement("h3");
     //Set timeAndLabel's content
-    timeAndLabel.innerHTML = "Timer: " + time;
+    timeAndLabel.innerHTML = "Timer: " + currentTime;
     //Add timer to scorePanel
     scorePanel.insertAdjacentElement("beforebegin", timeAndLabel);
     setInterval(addSecond, 1000, timeAndLabel);
@@ -211,6 +242,7 @@ function startTimer(){
 
 //Increments timer by 1 second
 function addSecond(timer){
-    time++;
-    timer.innerHTML = "Timer: " + time;
+    seconds++;
+    let myTime = makeTime()
+    timer.innerHTML = "Timer:" + myTime;
 }
