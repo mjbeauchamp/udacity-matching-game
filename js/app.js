@@ -88,35 +88,15 @@ let showCard = (e) => {
     }
 }
 
- //Shows or hides card in DOM and adds or removes it from openCards array
-let showOrHide = (e) => {
-    const target = e.target;
-    if(target.nodeName === "LI"){
-        if(!target.classList.contains("show")){
-            // addToOpen(e);
-            // target.classList.add("show");
-        } else if(target.classList.contains("show")){
-            //Search array to see if it currently contains this card
-            var arrIndex = openCards.indexOf(target);
-            //Remove card from array
-            openCards.splice(arrIndex, 1);
-            //Remove show class to hide card
-            target.classList.remove("show");
-        }
-    } else if(target.nodeName === "I"){
-        if(!target.parentElement.classList.contains("show")){
-            // addToOpen(e);
-            target.parentElement.classList.add("show");
-        } else if(target.parentElement.classList.contains("show")){
-            //Search array to see if it currently contains this card
-            var arrIndex = openCards.indexOf(target.parentElement);
-            //Remove card from array
-            openCards.splice(arrIndex, 1);
-            //Remove show class to hide card
-            target.parentElement.classList.remove("show");
-        }
-    }
-};
+//Hide card and remove from openCards array if not a match
+let hideAndRemove = (e) => {
+    const first = openCards[0];
+    const second = openCards[1];
+    first.classList.remove("show");
+    second.classList.remove("show");
+    openCards.splice(0, 2);
+
+}
 
 //Adds cards to openCards array IF they aren't already in it
 let addToOpen = (event) => {
@@ -138,14 +118,16 @@ let addToOpen = (event) => {
 deck.addEventListener("click", function(event){
     showCard(event);
     addToOpen(event);
-    // showOrHide(event);
+    // showOrHide(ev sent);
     //Check to see if two open cards match
     if(openCards[1]){
         const firstCard = openCards[0];
         const secondCard = openCards[1];
         const firstIcon = firstCard.firstChild.classList[1];
-        if(secondCard.firstChild.classList.contains(firstIcon)){
-            console.log("It's a match");
+        if(!secondCard.firstChild.classList.contains(firstIcon)){
+            console.log("It's not a match");
+            hideAndRemove(event);
+
         }
     }
 });
