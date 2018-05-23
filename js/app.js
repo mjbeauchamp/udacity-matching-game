@@ -70,7 +70,7 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
-let showCard = (e) => {
+let showOrHide = (e) => {
     const target = e.target;
     if(target.nodeName === "LI"){
         e.target.classList.toggle("show");
@@ -79,8 +79,10 @@ let showCard = (e) => {
     }
 };
 
+//Array to hold currently open cards
 let openCards = [];
 
+//Adds cards to openCards array IF they aren't already in it
 let addToOpen = (e) => {
     const target = e.target;
     let card;
@@ -89,11 +91,14 @@ let addToOpen = (e) => {
     } else if(target.nodeName === "I"){
         card = e.target.parentElement;
     }
-    openCards.push(card);
+    //Check to see if the second click is on the same card. If not, add it to the array.
+    if(openCards[0] !== card){
+        openCards.push(card);
+    }
 }
 
 deck.addEventListener("click", function(event){
-    showCard(event);
+    showOrHide(event);
     addToOpen(event);
     if(openCards[1]){
         const firstCard = openCards[0];
