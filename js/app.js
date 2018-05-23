@@ -4,8 +4,6 @@ const deck = document.querySelector(".deck");
 const moves = document.querySelector(".moves");
 //Moves counter value
 let counter = 0;
-//Timer element
-let timer = document.createElement("span");
 //Time value in seconds
 let time = 0;
 
@@ -201,16 +199,18 @@ deck.addEventListener("click", startTimer);
 function startTimer(){
     //Select div to add timer to
     const scorePanel = document.querySelector(".score-panel");
-    timer.textContent = time;
+    //Create timer label
+    let timeAndLabel = document.createElement("h3");
+    //Set timeAndLabel's content
+    timeAndLabel.innerHTML = "Timer: " + time;
     //Add timer to scorePanel
-    scorePanel.appendChild(timer);
-    setInterval(addSecond, 1000);
+    scorePanel.insertAdjacentElement("beforebegin", timeAndLabel);
+    setInterval(addSecond, 1000, timeAndLabel);
     // removeEventListener("click", startTimer);
 }
 
 //Increments timer by 1 second
-function addSecond(){
+function addSecond(timer){
     time++;
-    timer.textContent = time;
-
+    timer.innerHTML = "Timer: " + time;
 }
