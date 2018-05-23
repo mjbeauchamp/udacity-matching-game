@@ -1,3 +1,5 @@
+//Select the .deck ul element
+const deck = document.querySelector(".deck");
 /*
  * Create a list that holds all of your cards
  */
@@ -38,7 +40,6 @@ for(let i = 0; i <16; i++){
  */
 shuffle(cards);
 cards.forEach((val) => {
-    let deck = document.querySelector(".deck");
     deck.appendChild(val);
 });
 
@@ -68,3 +69,5 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+
