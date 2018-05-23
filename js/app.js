@@ -128,18 +128,6 @@ let addMatch = (c) => {
     });
 }
 
-//Increment counter when a move is made and display new value on page
-//const moves = document.querySelector(".moves");
-//let counter = 0;
-let addCounter = () => {
-    //Select DOM .moves, which displays number of moves
-    let moveSpan = document.querySelector(".moves");
-    //Increment counter to indicate current number of completed moves
-    counter++;
-    //Update DOM display of moves
-    moveSpan.textContent = counter;
-};
-
 //Click event listener for ul
 deck.addEventListener("click", function(event){
     const previousIcons = openCards.map(function(val){
@@ -170,5 +158,34 @@ deck.addEventListener("click", function(event){
     }
 });
 
+//Select DOM .moves, which displays number of moves
+let moveSpan = document.querySelector(".moves");
+
+//Increment counter when a move is made and display new value on page
+let addCounter = () => {
+    //Increment counter to indicate current number of completed moves
+    counter++;
+    //Update DOM display of moves
+    moveSpan.textContent = counter;
+};
+
+//Select reset button
+let resetBtn = document.querySelector(".restart");
 //Restart button functionality
+resetBtn.addEventListener("click", function(event){
+    //Empty out old cards from ul element
+    while(deck.firstChild){
+        deck.removeChild(deck.firstChild);
+    }
+    //Shuffle card order and render new cards in ul element
+    shuffle(cards);
+    cards.forEach((val) => {
+        deck.appendChild(val);
+    });
+    //Reset number of moves made
+    //Reset counter
+    counter = 0;
+    //Update DOM display of moves
+    moveSpan.textContent = counter;
+});
 
