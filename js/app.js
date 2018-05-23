@@ -36,6 +36,11 @@ for(let i = 0; i <16; i++){
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+shuffle(cards);
+cards.forEach((val) => {
+    let deck = document.querySelector(".deck");
+    deck.appendChild(val);
+});
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
