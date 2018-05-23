@@ -93,7 +93,7 @@ let showOrHide = (e) => {
     const target = e.target;
     if(target.nodeName === "LI"){
         if(!target.classList.contains("show")){
-            addToOpen(e);
+            // addToOpen(e);
             // target.classList.add("show");
         } else if(target.classList.contains("show")){
             //Search array to see if it currently contains this card
@@ -105,7 +105,7 @@ let showOrHide = (e) => {
         }
     } else if(target.nodeName === "I"){
         if(!target.parentElement.classList.contains("show")){
-            addToOpen(e);
+            // addToOpen(e);
             target.parentElement.classList.add("show");
         } else if(target.parentElement.classList.contains("show")){
             //Search array to see if it currently contains this card
@@ -137,6 +137,7 @@ let addToOpen = (event) => {
 //Click event listener for ul
 deck.addEventListener("click", function(event){
     showCard(event);
+    addToOpen(event);
     // showOrHide(event);
     //Check to see if two open cards match
     if(openCards[1]){
