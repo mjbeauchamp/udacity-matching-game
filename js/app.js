@@ -26,7 +26,7 @@ for(let i = 0; i <16; i++){
     let card = document.createElement("li");
     let icon = document.createElement("i");
     card.classList.add("card");
-    card.classList.add("show");
+    // card.classList.add("show");
     icon.classList.add("fa");
     icon.classList.add(icons[i]);
     card.appendChild(icon);
@@ -70,12 +70,31 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+ //Array to hold currently open cards
+let openCards = [];
+
+//Displays card's symbol when clicked
+let showCard = (e) => {
+    const target = e.target;
+    let card;
+    if(target.nodeName === "LI"){
+        card = event.target;
+    } else if(target.nodeName === "I"){
+        card = event.target.parentElement;
+    }
+    if(!card.classList.contains("show")){
+        target.classList.add("show");
+    }
+}
+
+ //Shows or hides card in DOM and adds or removes it from openCards array
 let showOrHide = (e) => {
     const target = e.target;
     if(target.nodeName === "LI"){
         if(!target.classList.contains("show")){
             addToOpen(e);
-            target.classList.add("show");
+            // target.classList.add("show");
         } else if(target.classList.contains("show")){
             //Search array to see if it currently contains this card
             var arrIndex = openCards.indexOf(target);
@@ -99,9 +118,6 @@ let showOrHide = (e) => {
     }
 };
 
-//Array to hold currently open cards
-let openCards = [];
-
 //Adds cards to openCards array IF they aren't already in it
 let addToOpen = (event) => {
     const target = event.target;
@@ -112,14 +128,17 @@ let addToOpen = (event) => {
         card = event.target.parentElement;
     }
     //Check to see if the second click is on the same card. If not, add it to the array.
-    if(openCards[0] !== card){
+    const arrIndex = openCards.indexOf(card);
+    if(arrIndex === -1){
         openCards.push(card);
     }
 }
 
+//Click event listener for ul
 deck.addEventListener("click", function(event){
-    showOrHide(event);
-    // addToOpen(event);
+    showCard(event);
+    // showOrHide(event);
+    //Check to see if two open cards match
     if(openCards[1]){
         const firstCard = openCards[0];
         const secondCard = openCards[1];
