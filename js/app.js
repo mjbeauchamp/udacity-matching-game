@@ -26,6 +26,7 @@ for(let i = 0; i <16; i++){
     let card = document.createElement("li");
     let icon = document.createElement("i");
     card.classList.add("card");
+    card.classList.add("show");
     icon.classList.add("fa");
     icon.classList.add(icons[i]);
     card.appendChild(icon);
@@ -94,7 +95,14 @@ let addToOpen = (e) => {
 deck.addEventListener("click", function(event){
     showCard(event);
     addToOpen(event);
-    
+    if(openCards[1]){
+        const firstCard = openCards[0];
+        const secondCard = openCards[1];
+        const firstIcon = firstCard.firstChild.classList[1];
+        if(secondCard.firstChild.classList.contains(firstIcon)){
+            console.log("It's a match");
+        }
+    }
 });
 
 
