@@ -88,16 +88,6 @@ let showCard = (e) => {
     }
 }
 
-//Hide card and remove from openCards array if not a match
-let hideAndRemove = (e) => {
-    const first = openCards[0];
-    const second = openCards[1];
-    first.classList.remove("show");
-    second.classList.remove("show");
-    openCards.splice(0, 2);
-
-}
-
 //Adds cards to openCards array IF they aren't already in it
 let addToOpen = (event) => {
     const target = event.target;
@@ -114,6 +104,16 @@ let addToOpen = (event) => {
     }
 }
 
+//Hide card and remove from openCards array if not a match
+let hideAndRemove = (e) => {
+    const prevOpen = openCards[openCards.length - 2];
+    const currentOpen = openCards[openCards.length - 1];
+    prevOpen.classList.remove("show");
+    currentOpen.classList.remove("show");
+    openCards.splice(openCards.length -2, 2);
+
+}
+
 //Click event listener for ul
 deck.addEventListener("click", function(event){
     const previousIcons = openCards.map(function(val){
@@ -123,10 +123,15 @@ deck.addEventListener("click", function(event){
     addToOpen(event);
     // showOrHide(ev sent);
     //Check to see if two open cards match
-    if(openCards[1]){
+    if(openCards[1] && openCards.length%2 === 0){
         const currentCard = openCards[openCards.length - 1];
         const currentIcon = currentCard.firstChild.classList[1];
-        if(previousIcons.indexOf(currentIcon) === -1){
+        //If it's a match, lock in the cards so they can't flip
+        if(previousIcons.indexOf(currentIcon) !== -1){
+            console.log("It's a match!");
+        
+        //If the cards don't match, hide the icon and remove card from openCards array
+        } else if(previousIcons.indexOf(currentIcon) === -1){
             console.log("It's not a match");
             hideAndRemove(event);
         }
