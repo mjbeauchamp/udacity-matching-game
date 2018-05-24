@@ -200,12 +200,12 @@ let hours = 0;
 
 let makeTime = () => {
     if(seconds>59){
-        seconds = 0;
         minutes++;
+        seconds = 0;
     }
     if(minutes>59){
-        minutes = 0;
         hours++;
+        minutes = 0;
     }
     let showSeconds = seconds;
     let showMinutes = minutes;
