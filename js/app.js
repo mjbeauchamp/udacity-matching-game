@@ -169,30 +169,32 @@ let addMatch = (c) => {
 
 //Click event listener for ul
 deck.addEventListener("click", function(event){
-    const previousIcons = openCards.map(function(val){
-        return val.firstChild.classList[1];
-    });
-    showCard(event);
-    addToOpen(event);
-    // showOrHide(ev sent);
-    //Check to see if array has even number of cards, so last two should be compared
-    if(openCards[1] && openCards.length%2 === 0){
-        //Increment counter to show completed "move"
-        addCounter();
-        //Select current card and its icon
-        const currentCard = openCards[openCards.length - 1];
-        const currentIcon = currentCard.firstChild.classList[1];
-        //If it is a match, add .match class to cards
-        if(previousIcons.indexOf(currentIcon) !== -1){
-            addMatch(currentIcon);
-            //If it's the last match, game is won
-            if(openCards.length===16){
-                console.log("Congrats! You won!!");
+    if(!checkCards[1]){
+        const previousIcons = openCards.map(function(val){
+            return val.firstChild.classList[1];
+        });
+        showCard(event);
+        addToOpen(event);
+        // showOrHide(ev sent);
+        //Check to see if array has even number of cards, so last two should be compared
+        if(openCards[1] && openCards.length%2 === 0){
+            //Increment counter to show completed "move"
+            addCounter();
+            //Select current card and its icon
+            const currentCard = openCards[openCards.length - 1];
+            const currentIcon = currentCard.firstChild.classList[1];
+            //If it is a match, add .match class to cards
+            if(previousIcons.indexOf(currentIcon) !== -1){
+                addMatch(currentIcon);
+                //If it's the last match, game is won
+                if(openCards.length===16){
+                    console.log("Congrats! You won!!");
+                }
+            //If it's not a match, remove the cards
+            } else if(previousIcons.indexOf(currentIcon) === -1){
+                console.log("It's not a match");
+                setTimeout(hideAndRemove, 2300, event);
             }
-        //If it's not a match, remove the cards
-        } else if(previousIcons.indexOf(currentIcon) === -1){
-            console.log("It's not a match");
-            setTimeout(hideAndRemove, 2300, event);
         }
     }
 });
