@@ -172,28 +172,7 @@ let addCounter = () => {
     moveSpan.textContent = counter;
 };
 
-//Select reset button
-let resetBtn = document.querySelector(".restart");
-//Restart button functionality
-resetBtn.addEventListener("click", function(event){
-    //Empty out old cards from ul element
-    while(deck.firstChild){
-        deck.removeChild(deck.firstChild);
-    }
-    //Shuffle card order and render new cards in ul element
-    shuffle(cards);
-    cards.forEach((val) => {
-        deck.appendChild(val);
-    });
-    //Reset number of moves made
-    //Reset counter
-    counter = 0;
-    //Update DOM display of moves
-    moveSpan.textContent = counter;
-});
-
 //Timer functionality
-//Time value in seconds
 let seconds = 0;
 let minutes = 0;
 let hours = 0;
@@ -232,6 +211,8 @@ function startTimer(){
     const scorePanel = document.querySelector(".score-panel");
     //Create timer label
     let timeAndLabel = document.createElement("h3");
+    //Add timer classs
+    timeAndLabel.classList.add("timer");
     //Set timeAndLabel's content
     timeAndLabel.innerHTML = "Timer: " + currentTime;
     //Add timer to scorePanel
@@ -246,3 +227,30 @@ function addSecond(timer){
     let myTime = makeTime()
     timer.innerHTML = "Timer:" + myTime;
 }
+
+//Select reset button
+let resetBtn = document.querySelector(".restart");
+//Restart button functionality
+resetBtn.addEventListener("click", function(event){
+    //Empty out old cards from ul element
+    while(deck.firstChild){
+        deck.removeChild(deck.firstChild);
+    }
+    //Shuffle card order and render new cards in ul element
+    shuffle(cards);
+    cards.forEach((val) => {
+        deck.appendChild(val);
+    });
+    //Reset number of moves made
+    //Reset counter
+    counter = 0;
+    //Update DOM display of moves
+    moveSpan.textContent = counter;
+    //Reset timer
+    let timer = document.querySelector(".timer");
+    timer.remove();
+    seconds = 0;
+    minutes = 0;
+    hours = 0;
+    startTimer();
+});
