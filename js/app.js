@@ -156,7 +156,7 @@ deck.addEventListener("click", function(event){
         //If it's not a match, remove the cards
         } else if(previousIcons.indexOf(currentIcon) === -1){
             console.log("It's not a match");
-            hideAndRemove(event);
+            setTimeout(hideAndRemove, 2300, event);
         }
     }
 });
