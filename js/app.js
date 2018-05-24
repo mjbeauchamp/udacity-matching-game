@@ -153,10 +153,15 @@ let hideAndRemove = (e) => {
 //Adds match class to matched cards
 //Also adds matched cards to matchedCards array
 //Also removes all cards from checkCards array
-let addMatch = (c) => {
+let addMatch = (icon, card) => {
     let matched = openCards.filter(function(val){
-        return val.firstChild.classList[1] === c;
+        return val.firstChild.classList[1] === icon;
     });
+    //Iterate move counter if the card isn't already in matchedCards array
+    if(matchedCards.indexOf(card)===-1){
+        addCounter();
+    }
+    //Handle each card
     matched.forEach(function(val){
         //Add .match class to newly matched cards
         val.classList.add("match");
@@ -186,7 +191,7 @@ deck.addEventListener("click", function(event){
             const currentIcon = currentCard.firstChild.classList[1];
             //If it is a match, add .match class to cards and increment move counter
             if(previousIcons.indexOf(currentIcon) !== -1){
-                addMatch(currentIcon);
+                addMatch(currentIcon, currentCard);
                 //If it's the last match, game is won
                 if(openCards.length===16){
                     console.log("Congrats! You won!!");
