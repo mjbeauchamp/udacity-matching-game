@@ -78,8 +78,16 @@ function shuffle(array) {
 
  //Array to hold currently open cards
 let openCards = [];
+//Array to hold successful matches
+//This allows you to keep track of what cards have already been successfully matched
+//Knowing this, you can easily tell if a clicked card has already been matched or not,
+//which lets you identify a clicked unmatched card.
+let matchedCards = [];
+//Array to hold two cards that are currently being checked against each other
+let checkCards = [];
 
 //Displays card's symbol when clicked
+//Adds card to checkCards array
 let showCard = (e) => {
     const target = e.target;
     let card;
@@ -88,14 +96,32 @@ let showCard = (e) => {
     } else if(target.nodeName === "I"){
         card = event.target.parentElement;
     }
+    //If the card isn't already being "shown" as visible, take the following actions
     if(!card.classList.contains("show")){
         card.classList.add("show");
         card.classList.add("open");
+        //add card to checkCards array
+        checkCards.push(card);
     }
 }
 
 //Adds cards to openCards array IF they aren't already in it
 let addToOpen = (event) => {
+    const target = event.target;
+    let card;
+    if(target.nodeName === "LI"){
+        card = event.target;
+    } else if(target.nodeName === "I"){
+        card = event.target.parentElement;
+    }
+    //Check to see if the second click is on the same card. If not, add it to the array.
+    const arrIndex = openCards.indexOf(card);
+    if(arrIndex === -1){
+        openCards.push(card);
+    }
+}
+//Add cards to checkMatch array if they are being compared
+let addCheckMatch = (event) => {
     const target = event.target;
     let card;
     if(target.nodeName === "LI"){
@@ -119,15 +145,25 @@ let hideAndRemove = (e) => {
     currentOpen.classList.remove("show");
     currentOpen.classList.remove("open");
     openCards.splice(openCards.length -2, 2);
+    //Remove card from checkCards array
+    checkCards.pop();
+    checkCards.pop();
 }
 
 //Adds match class to matched cards
+//Also adds matched cards to matchedCards array
+//Also removes all cards from checkCards array
 let addMatch = (c) => {
     let matched = openCards.filter(function(val){
         return val.firstChild.classList[1] === c;
     });
     matched.forEach(function(val){
+        //Add .match class to newly matched cards
         val.classList.add("match");
+        //Add newly matched cards to matchedCards array
+        matchedCards.push(val);
+        //Remove card from checkCards array
+        checkCards.pop();
     });
 }
 
@@ -139,7 +175,7 @@ deck.addEventListener("click", function(event){
     showCard(event);
     addToOpen(event);
     // showOrHide(ev sent);
-    //Check to see if two open cards match
+    //Check to see if array has even number of cards, so last two should be compared
     if(openCards[1] && openCards.length%2 === 0){
         //Increment counter to show completed "move"
         addCounter();
@@ -147,9 +183,9 @@ deck.addEventListener("click", function(event){
         const currentCard = openCards[openCards.length - 1];
         const currentIcon = currentCard.firstChild.classList[1];
         //If it is a match, add .match class to cards
-        //If it's the last match, game is won
         if(previousIcons.indexOf(currentIcon) !== -1){
             addMatch(currentIcon);
+            //If it's the last match, game is won
             if(openCards.length===16){
                 console.log("Congrats! You won!!");
             }
