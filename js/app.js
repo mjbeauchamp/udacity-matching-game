@@ -191,7 +191,9 @@ deck.addEventListener("click", function(event){
             const currentIcon = currentCard.firstChild.classList[1];
             //If it is a match, add .match class to cards and increment move counter
             if(previousIcons.indexOf(currentIcon) !== -1){
-                addMatch(currentIcon, currentCard);
+                if(matchedCards.indexOf(currentCard) === -1){
+                    addMatch(currentIcon, currentCard);
+                }
                 //If it's the last match, game is won
                 if(openCards.length===16){
                     console.log("Congrats! You won!!");
