@@ -160,8 +160,11 @@ let addMatch = (c) => {
     matched.forEach(function(val){
         //Add .match class to newly matched cards
         val.classList.add("match");
-        //Add newly matched cards to matchedCards array
-        matchedCards.push(val);
+        //Add newly matched cards to matchedCards array if they aren't already there
+        //Increment turn counter
+        if(matchedCards.indexOf(val) === -1){
+            matchedCards.push(val);
+        }
         //Remove card from checkCards array
         checkCards.pop();
     });
@@ -178,27 +181,29 @@ deck.addEventListener("click", function(event){
         // showOrHide(ev sent);
         //Check to see if array has even number of cards, so last two should be compared
         if(openCards[1] && openCards.length%2 === 0){
-            //Increment counter to show completed "move"
-            addCounter();
             //Select current card and its icon
             const currentCard = openCards[openCards.length - 1];
             const currentIcon = currentCard.firstChild.classList[1];
-            //If it is a match, add .match class to cards
+            //If it is a match, add .match class to cards and increment move counter
             if(previousIcons.indexOf(currentIcon) !== -1){
                 addMatch(currentIcon);
                 //If it's the last match, game is won
                 if(openCards.length===16){
                     console.log("Congrats! You won!!");
                 }
-            //If it's not a match, remove the cards
+            //If it's not a match, remove the cards and increment move counter
             } else if(previousIcons.indexOf(currentIcon) === -1){
                 console.log("It's not a match");
+                //Increment counter to show completed "move"
+                addCounter();
+                //Hide cards and remove from openCards array, after giving user enough time to view
                 setTimeout(hideAndRemove, 2300, event);
             }
         }
     }
 });
 
+//*************** Move counter functionality *******************
 //Select DOM .moves, which displays number of moves
 let moveSpan = document.querySelector(".moves");
 
