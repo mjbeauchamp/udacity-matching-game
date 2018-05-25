@@ -120,6 +120,7 @@ h1 {
 */
 .win {
     width: 500px;
+    max-width: 80%;
     min-height: 200px;
     text-align: center;
     background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
