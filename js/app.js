@@ -4,6 +4,8 @@ const deck = document.querySelector(".deck");
 const moves = document.querySelector(".moves");
 //Moves counter value
 let counter = 0;
+//Number of stars
+let starNumber = 3;
 
 /*
  * Create a list that holds all of your cards
@@ -222,6 +224,18 @@ let addCounter = () => {
     counter++;
     //Update DOM display of moves
     moveSpan.textContent = counter;
+    //Update stars over a certain number of moves
+    let starList = document.querySelector(".stars").children;
+    if(starNumber > 1){
+        if((counter > 14 && counter < 30) && starNumber === 3){
+            removeLastStar();
+            starNumber--;
+        }
+        if(counter >= 30){
+            removeSecondStar();
+            starNumber--;
+        }
+    }
 };
 
 //****************** Reset Button Funcitonality ***********************/
@@ -269,6 +283,8 @@ resetBtn.addEventListener("click", function(event){
         hours = 0;
         deck.addEventListener("click", initialTimer);
     }
+    //Restore star rating to three stars
+    restoreStars();
 });
 
 //***********TIMER FUNCTIONALITY**************
@@ -346,3 +362,25 @@ function addSecond(timer){
     let myTime = makeTime()
     timer.innerHTML = "Timer:" + myTime;
 }
+
+/***************** Star Rating Functionality *****************/
+let removeLastStar = () => {
+    let starList = document.querySelector(".stars");
+    starList.lastElementChild.classList.add("hide");
+};
+
+let removeSecondStar = () => {
+    let starList = document.querySelector(".stars").children;
+    starList[1].classList.add("hide");
+};
+
+let restoreStars = () => {
+    let starList = document.querySelector(".stars").children;
+    console.log(starList);
+    for(star in starList){
+        console.log(star);
+        starList[star].classList.remove("hide");
+    }
+};
+
+
