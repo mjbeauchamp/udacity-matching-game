@@ -174,37 +174,39 @@ let addMatch = (icon, card) => {
         checkCards.pop();
     });
 }
-
+/*************** Card Click Event Listener ******************/
 //Click event listener for ul
 deck.addEventListener("click", function(event){
-    if(!checkCards[1]){
-        const previousIcons = openCards.map(function(val){
-            return val.firstChild.classList[1];
-        });
-        showCard(event);
-        addToOpen(event);
-        // showOrHide(ev sent);
-        //Check to see if array has even number of cards, so last two should be compared
-        if(openCards[1] && openCards.length%2 === 0){
-            //Select current card and its icon
-            const currentCard = openCards[openCards.length - 1];
-            const currentIcon = currentCard.firstChild.classList[1];
-            //If it is a match, add .match class to cards and increment move counter
-            if(previousIcons.indexOf(currentIcon) !== -1){
-                if(matchedCards.indexOf(currentCard) === -1){
-                    addMatch(currentIcon, currentCard);
+    if(event.target.nodeName === "LI" || event.target.nodeName === "I"){
+        if(!checkCards[1]){
+            const previousIcons = openCards.map(function(val){
+                return val.firstChild.classList[1];
+            });
+            showCard(event);
+            addToOpen(event);
+            // showOrHide(ev sent);
+            //Check to see if array has even number of cards, so last two should be compared
+            if(openCards[1] && openCards.length%2 === 0){
+                //Select current card and its icon
+                const currentCard = openCards[openCards.length - 1];
+                const currentIcon = currentCard.firstChild.classList[1];
+                //If it is a match, add .match class to cards and increment move counter
+                if(previousIcons.indexOf(currentIcon) !== -1){
+                    if(matchedCards.indexOf(currentCard) === -1){
+                        addMatch(currentIcon, currentCard);
+                    }
+                    //If it's the last match, game is won
+                    if(openCards.length===16){
+                        console.log("Congrats! You won!!");
+                    }
+                //If it's not a match, remove the cards and increment move counter
+                } else if(previousIcons.indexOf(currentIcon) === -1){
+                    console.log("It's not a match");
+                    //Increment counter to show completed "move"
+                    addCounter();
+                    //Hide cards and remove from openCards array, after giving user enough time to view
+                    setTimeout(hideAndRemove, 2300, event);
                 }
-                //If it's the last match, game is won
-                if(openCards.length===16){
-                    console.log("Congrats! You won!!");
-                }
-            //If it's not a match, remove the cards and increment move counter
-            } else if(previousIcons.indexOf(currentIcon) === -1){
-                console.log("It's not a match");
-                //Increment counter to show completed "move"
-                addCounter();
-                //Hide cards and remove from openCards array, after giving user enough time to view
-                setTimeout(hideAndRemove, 2300, event);
             }
         }
     }
