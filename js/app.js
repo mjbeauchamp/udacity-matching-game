@@ -142,7 +142,8 @@ let addCheckMatch = (event) => {
 let hideAndRemove = (e) => {
     const prevOpen = openCards[openCards.length - 2];
     const currentOpen = openCards[openCards.length - 1];
-    prevOpen.classList.remove("show");
+    if(prevOpen && currentOpen){
+        prevOpen.classList.remove("show");
     prevOpen.classList.remove("open");
     currentOpen.classList.remove("show");
     currentOpen.classList.remove("open");
@@ -150,6 +151,7 @@ let hideAndRemove = (e) => {
     //Remove card from checkCards array
     checkCards.pop();
     checkCards.pop();
+    }
 }
 
 //Adds match class to matched cards
@@ -374,13 +376,11 @@ let removeSecondStar = () => {
     starList[1].classList.add("hide");
 };
 
-let restoreStars = () => {
-    let starList = document.querySelector(".stars").children;
-    console.log(starList);
-    for(star in starList){
-        console.log(star);
-        starList[star].classList.remove("hide");
-    }
-};
+// let restoreStars = () => {
+//     let starList = document.querySelector(".stars");
+//     starList.lastElementChild.classList.add("hide");
+//     let secondStarList = document.querySelector(".stars").children;
+//     secondStarList[1].classList.remove("hide");
+// };
 
 
