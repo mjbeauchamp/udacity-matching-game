@@ -1,20 +1,13 @@
 # Memory Game Project
 
-## Table of Contents
+## Intro
 
-* [Instructions](#instructions)
-* [Contributing](#contributing)
+This code is a student project that creates a simple memory game that allows the player to match pairs of cards by flipping over one pair of cards at a time.
 
-## Instructions
+## Dependencies
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+This code is written using vanilla JavaScript and has no dependencies.
 
-To get started, open `js/app.js` and start building out the app's functionality
+## Contributors
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
-
-## Contributing
-
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+A large part of this code was cloned from a Udacity repository designed to get students started on this memory game project. View the initial starter code here: https://github.com/udacity/fend-project-memory-game.
