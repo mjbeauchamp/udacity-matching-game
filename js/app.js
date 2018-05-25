@@ -297,6 +297,8 @@ let hardReset = () => {
     }
     //Restore star rating to three stars
     restoreStars();
+    //Scroll to top of screen
+    scrollTop();
 };
 
 //Reset button event listener
@@ -396,6 +398,7 @@ let restoreStars = () => {
 
 /***************** Win Congrats Pop-Up ***********/
 const youWon = () => {
+    scrollTop();
     let header = document.getElementsByTagName("header")[0];
     let popUp = document.createElement("div");
     let youWon = document.createElement("h2");
@@ -420,4 +423,9 @@ const youWon = () => {
         hardReset();
     };
 };
-youWon();
+
+//Scroll to top of page
+function scrollTop(){
+    document.documentElement.scrollTop = 0; //For other browsers
+    document.body.scrollTop = 0; //For Safari
+}
