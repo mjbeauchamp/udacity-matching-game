@@ -229,11 +229,11 @@ let addCounter = () => {
     //Update stars over a certain number of moves
     let starList = document.querySelector(".stars").children;
     if(starNumber > 1){
-        if((counter > 1 && counter < 3) && starNumber === 3){
+        if((counter > 14 && counter < 30) && starNumber === 3){
             removeLastStar();
             starNumber--;
         }
-        if(counter >= 3){
+        if(counter >= 30){
             removeSecondStar();
             starNumber--;
         }
