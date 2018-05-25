@@ -202,6 +202,7 @@ deck.addEventListener("click", function(event){
                     //If it's the last match, game is won
                     if(openCards.length===16){
                         console.log("Congrats! You won!!");
+                        clearInterval(interval);        
                     }
                 //If it's not a match, remove the cards and increment move counter
                 } else if(previousIcons.indexOf(currentIcon) === -1){
