@@ -6,6 +6,10 @@ const moves = document.querySelector(".moves");
 let counter = 0;
 //Number of stars
 let starNumber = 3;
+//Define times
+let seconds = 0;
+let minutes = 0;
+let hours = 0;
 
 /*
  * Create a list that holds all of your cards
@@ -202,7 +206,11 @@ deck.addEventListener("click", function(event){
                     //If it's the last match, game is won
                     if(openCards.length===16){
                         console.log("Congrats! You won!!");
-                        clearInterval(interval);        
+                        //Stop timer
+                        clearInterval(interval);
+                        //Display congrats pop-up
+                        youWon();
+
                     }
                 //If it's not a match, remove the cards and increment move counter
                 } else if(previousIcons.indexOf(currentIcon) === -1){
@@ -216,6 +224,7 @@ deck.addEventListener("click", function(event){
         }
     }
 });
+
 
 //*************** Move counter functionality *******************
 //Select DOM .moves, which displays number of moves
@@ -245,7 +254,7 @@ let addCounter = () => {
 //Select reset button
 let resetBtn = document.querySelector(".restart");
 //Restart button functionality
-resetBtn.addEventListener("click", function(event){
+let hardReset = () => {
     //Empty out cards from all tracking arrays-- openCards, matchedCards, checkCards
     while(openCards[0]){
         openCards.pop();
@@ -288,13 +297,12 @@ resetBtn.addEventListener("click", function(event){
     }
     //Restore star rating to three stars
     restoreStars();
-});
+};
+
+//Reset button event listener
+resetBtn.addEventListener("click", hardReset);
 
 //***********TIMER FUNCTIONALITY**************
-//Define times
-let seconds = 0;
-let minutes = 0;
-let hours = 0;
 //Declare initial setInterval VARIABLE
 let interval;
 
@@ -386,4 +394,30 @@ let restoreStars = () => {
     starNumber = 3;
 };
 
-
+/***************** Win Congrats Pop-Up ***********/
+const youWon = () => {
+    let header = document.getElementsByTagName("header")[0];
+    let popUp = document.createElement("div");
+    let youWon = document.createElement("h2");
+    let time = document.createElement("p");
+    let stars = document.createElement("p");
+    let playAgainBtn = document.createElement("button");
+    let finalStars = starNumber;
+    let finalTime = makeTime();
+    popUp.classList.add("win");
+    youWon.textContent = "You Won!";
+    time.textContent = `Your time was: ${finalTime}.`;
+    stars.textContent = `Your star rating was: ${starNumber}.`;
+    playAgainBtn.textContent = "Play Again?";
+    playAgainBtn.addEventListener("click", playAgain);
+    popUp.appendChild(youWon);
+    popUp.appendChild(time);
+    popUp.appendChild(stars);
+    popUp.appendChild(playAgainBtn);
+    header.insertAdjacentElement("afterend", popUp);
+    function playAgain(){
+        popUp.remove();
+        hardReset();
+    };
+};
+youWon();
