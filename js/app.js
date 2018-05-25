@@ -229,11 +229,11 @@ let addCounter = () => {
     //Update stars over a certain number of moves
     let starList = document.querySelector(".stars").children;
     if(starNumber > 1){
-        if((counter > 14 && counter < 30) && starNumber === 3){
+        if((counter > 1 && counter < 3) && starNumber === 3){
             removeLastStar();
             starNumber--;
         }
-        if(counter >= 30){
+        if(counter >= 3){
             removeSecondStar();
             starNumber--;
         }
@@ -376,11 +376,13 @@ let removeSecondStar = () => {
     starList[1].classList.add("hide");
 };
 
-// let restoreStars = () => {
-//     let starList = document.querySelector(".stars");
-//     starList.lastElementChild.classList.add("hide");
-//     let secondStarList = document.querySelector(".stars").children;
-//     secondStarList[1].classList.remove("hide");
-// };
+//Restores stars to visibility
+let restoreStars = () => {
+    let starList = document.querySelector(".stars");
+    starList.lastElementChild.classList.remove("hide");
+    let secondStarList = document.querySelector(".stars").children;
+    secondStarList[1].classList.remove("hide");
+    starNumber = 3;
+};
 
 
