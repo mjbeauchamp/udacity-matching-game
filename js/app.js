@@ -240,20 +240,21 @@ let resetBtn = document.querySelector(".restart");
 //Restart button functionality
 resetBtn.addEventListener("click", function(event){
     //Empty out cards from all tracking arrays-- openCards, matchedCards, checkCards
-    while(openCards.firstChild){
-        openCards.removeChild(openCards.firstChild);
+    while(openCards[0]){
+        openCards.pop();
     }
-    while(matchedCards.firstChild){
-        matchedCards.removeChild(matchedCards.firstChild);
+    while(matchedCards[0]){
+        matchedCards.pop();
     }
-    while(checkCards.firstChild){
-        checkCards.removeChild(openCards.firstChild);
+    while(checkCards[0]){
+        checkCards.pop();
     }
     // //Flip all cards back over
-    //  cards.forEach((val) => {
-    //     val.classList.remove("open");
-    //     val.classList.remove("show");
-    // });
+     cards.forEach((val, i, a) => {
+        a[i].classList.remove("open");
+        a[i].classList.remove("show");
+        a[i].classList.remove("match");
+    });
     //Empty out old cards from ul element
     while(deck.firstChild){
         deck.removeChild(deck.firstChild);
