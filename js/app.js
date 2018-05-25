@@ -224,18 +224,6 @@ let addCounter = () => {
     moveSpan.textContent = counter;
 };
 
-//***********TIMER FUNCTIONALITY**************
-//Define times
-let seconds = 0;
-let minutes = 0;
-let hours = 0;
-//Declare initial setInterval VARIABLE
-let interval;
-
-
-//Create and manage timer -- will happen only on first card click after page load or restarting
-deck.addEventListener("click", initialTimer);
-
 //****************** Reset Button Funcitonality ***********************/
 //Select reset button
 let resetBtn = document.querySelector(".restart");
@@ -283,10 +271,24 @@ resetBtn.addEventListener("click", function(event){
     }
 });
 
+//***********TIMER FUNCTIONALITY**************
+//Define times
+let seconds = 0;
+let minutes = 0;
+let hours = 0;
+//Declare initial setInterval VARIABLE
+let interval;
+
+
+//Create and manage timer -- will happen only on first card click after page load or restarting
+deck.addEventListener("click", initialTimer);
+
 //Will run startTimer() ONLY on first card click
 function initialTimer(){
-    startTimer();
-    deck.removeEventListener("click", initialTimer);
+    if(event.target.nodeName === "LI" || event.target.nodeName === "I"){
+        startTimer();
+        deck.removeEventListener("click", initialTimer);
+    }
 }
 
 //Starts Timer
