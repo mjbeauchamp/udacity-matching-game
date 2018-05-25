@@ -234,10 +234,26 @@ let interval;
 //Create and manage timer -- will happen only on first card click after page load or restarting
 deck.addEventListener("click", initialTimer);
 
+//****************** Reset Button Funcitonality ***********************/
 //Select reset button
 let resetBtn = document.querySelector(".restart");
 //Restart button functionality
 resetBtn.addEventListener("click", function(event){
+    //Empty out cards from all tracking arrays-- openCards, matchedCards, checkCards
+    while(openCards.firstChild){
+        openCards.removeChild(openCards.firstChild);
+    }
+    while(matchedCards.firstChild){
+        matchedCards.removeChild(matchedCards.firstChild);
+    }
+    while(checkCards.firstChild){
+        checkCards.removeChild(openCards.firstChild);
+    }
+    // //Flip all cards back over
+    //  cards.forEach((val) => {
+    //     val.classList.remove("open");
+    //     val.classList.remove("show");
+    // });
     //Empty out old cards from ul element
     while(deck.firstChild){
         deck.removeChild(deck.firstChild);
@@ -253,13 +269,15 @@ resetBtn.addEventListener("click", function(event){
     //Update DOM display of moves
     moveSpan.textContent = counter;
     //Reset timer
-    let timer = document.querySelector(".timer");
-    timer.remove();
-    clearInterval(interval);
-    seconds = 0;
-    minutes = 0;
-    hours = 0;
-    deck.addEventListener("click", initialTimer);
+    if(document.querySelector(".timer")){
+        let timer = document.querySelector(".timer");
+        timer.remove();
+        clearInterval(interval);
+        seconds = 0;
+        minutes = 0;
+        hours = 0;
+        deck.addEventListener("click", initialTimer);
+    }
 });
 
 //Will run startTimer() ONLY on first card click
